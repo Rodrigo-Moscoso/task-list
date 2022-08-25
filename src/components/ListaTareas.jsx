@@ -6,7 +6,7 @@ function ListaTareas({ nombre, estado }) {
       id: 1,
       nombre:
         "Realizar la tarea 1 Lorem ipsum dolor sit amet. Et minima sint sit sequi",
-      estado: "pediente",
+      estado: "pendiente",
     },
     {
       id: 2,
@@ -18,13 +18,13 @@ function ListaTareas({ nombre, estado }) {
       id: 3,
       nombre:
         "Realizar la tarea 3 Lorem ipsum dolor sit amet. Et minima sint sit sequi",
-      estado: "parcial",
+      estado: "en proceso",
     },
     {
       id: 4,
       nombre:
         "Realizar la tarea 4 Lorem ipsum dolor sit amet. Et minima sint sit sequi",
-      estado: "parcial",
+      estado: "en proceso",
     },
     {
       id: 5,
@@ -36,7 +36,7 @@ function ListaTareas({ nombre, estado }) {
       id: 6,
       nombre:
         "Realizar la tarea 6 Lorem ipsum dolor sit amet. Et minima sint sit sequi",
-      estado: "parcial",
+      estado: "en proceso",
     },
     {
       id: 7,

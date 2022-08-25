@@ -29,6 +29,22 @@
   transform: rotate(1.5deg);
 }
 
+.boton-estado {
+  color: aliceblue;
+  background-color: rgba(92, 58, 79, 1);
+  width: 100px;
+  margin: 5%;
+  padding: 5%;
+  border-radius: 50px;
+  border: none;
+}
+
+.boton-estado:hover {
+  background-color: rgba(92, 58, 79, 0.767);
+  transform: scale(1.06);
+  cursor: pointer;
+}
+
 img {
   border-radius: 130px;
 }

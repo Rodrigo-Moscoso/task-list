@@ -6,7 +6,7 @@ function Tarea({ nombre, estado }) {
         background:
           estado === "completo"
             ? "lightgreen"
-            : estado === "parcial"
+            : estado === "en proceso"
             ? "lightblue"
             : "goldenrod",
       }}
@@ -19,7 +19,7 @@ function Tarea({ nombre, estado }) {
           alt="Icono Check Verde de Completo"
           width="50px"
         />
-      ) : estado === "parcial" ? (
+      ) : estado === "en proceso" ? (
         <img
           src="https://t4.ftcdn.net/jpg/02/72/79/67/240_F_272796737_1gfclSQF8yzFHZeE2XX5513eOQMV53dw.jpg"
           alt="Icono Check Azul de Parcial"
@@ -31,6 +31,23 @@ function Tarea({ nombre, estado }) {
           alt="Icono Check Amarillo de Pendiente"
           width="50px"
         />
+      )}
+
+      {estado === "completo" ? (
+        <div>
+          <button className="boton-estado">En Proceso</button>
+          <button className="boton-estado">Pendiente</button>
+        </div>
+      ) : estado === "pendiente" ? (
+        <div>
+          <button className="boton-estado">Completo</button>
+          <button className="boton-estado">En Proceso</button>
+        </div>
+      ) : (
+        <div>
+          <button className="boton-estado">Completo</button>
+          <button className="boton-estado">Pendiente</button>
+        </div>
       )}
     </div>
   );
