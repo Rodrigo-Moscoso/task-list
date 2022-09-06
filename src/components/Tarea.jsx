@@ -1,4 +1,11 @@
-function Tarea({ nombre, estado }) {
+function Tarea({
+  id,
+  nombre,
+  estado,
+  colocarPendiente,
+  colocarCompleto,
+  colocarEnProceso,
+}) {
   return (
     <div
       className="Tarea"
@@ -35,18 +42,61 @@ function Tarea({ nombre, estado }) {
 
       {estado === "completo" ? (
         <div>
-          <button className="boton-estado">En Proceso</button>
-          <button className="boton-estado">Pendiente</button>
+          <button
+            className="boton-estado"
+            onClick={() => {
+              colocarEnProceso(id);
+            }}
+          >
+            En Proceso
+          </button>
+          <button
+            className="boton-estado"
+            onClick={() => {
+              colocarPendiente(id);
+            }}
+          >
+            Pendiente
+          </button>
         </div>
       ) : estado === "pendiente" ? (
         <div>
-          <button className="boton-estado">Completo</button>
-          <button className="boton-estado">En Proceso</button>
+          <button
+            className="boton-estado"
+            onClick={() => {
+              colocarCompleto(id);
+            }}
+          >
+            Completo
+          </button>
+          <button
+            className="boton-estado"
+            onClick={() => {
+              colocarEnProceso(id);
+            }}
+          >
+            En Proceso
+          </button>
         </div>
       ) : (
         <div>
-          <button className="boton-estado">Completo</button>
-          <button className="boton-estado">Pendiente</button>
+          <button
+            className="boton-estado"
+            onClick={() => {
+              colocarCompleto(id);
+            }}
+          >
+            Completo
+          </button>
+
+          <button
+            className="boton-estado"
+            onClick={() => {
+              colocarPendiente(id);
+            }}
+          >
+            Pendiente
+          </button>
         </div>
       )}
     </div>
