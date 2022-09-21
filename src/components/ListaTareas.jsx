@@ -1,5 +1,8 @@
 import Tarea from "./Tarea";
 import { useState } from "react";
+import CrearTarea from "./CrearTarea";
+import EditarTarea from "./EditarTarea";
+import EliminarTarea from "./EliminarTarea";
 
 const listadoTareas = [
   {
@@ -42,6 +45,8 @@ const listadoTareas = [
 function ListaTareas({ nombre, estado }) {
   const [tareas, setTareas] = useState(listadoTareas);
 
+  //Funciones para CAMBIAR ESTADO de las tareas
+
   const colocarPendiente = (id) => {
     setTareas(
       tareas.map((tarea) => {
@@ -78,17 +83,64 @@ function ListaTareas({ nombre, estado }) {
     );
   };
 
-  return tareas.map((tarea) => (
-    <Tarea
-      key={tarea.id}
-      id={tarea.id}
-      nombre={tarea.nombre}
-      estado={tarea.estado}
-      colocarPendiente={colocarPendiente}
-      colocarCompleto={colocarCompleto}
-      colocarEnProceso={colocarEnProceso}
-    />
-  ));
+  //función para CREAR TAREA
+
+  function crearNuevaTarea(nuevaTarea) {
+    setTareas([
+      ...tareas,
+      { id: tareas.length + 1, nombre: nuevaTarea, estado: "pendiente" },
+    ]);
+  }
+
+  //Función para EDITAR TAREA
+
+  function editarNombreTarea(id, tareaEditada) {
+    setTareas(
+      tareas.map((tarea) => {
+        if (id === tarea.id) {
+          return { ...tarea, nombre: tareaEditada };
+        } else {
+          return tarea;
+        }
+      })
+    );
+  }
+
+  // Función para BORRAR TAREA
+
+  function borrarTarea(id) {
+    setTareas(tareas.filter((tarea) => id !== tarea.id));
+  }
+
+  return (
+    <div>
+      <CrearTarea crearNuevaTarea={crearNuevaTarea} />
+
+      {tareas.map((tarea) => (
+        <>
+          <Tarea
+            key={tarea.id}
+            id={tarea.id}
+            nombre={tarea.nombre}
+            estado={tarea.estado}
+            colocarPendiente={colocarPendiente}
+            colocarCompleto={colocarCompleto}
+            colocarEnProceso={colocarEnProceso}
+          />
+          <EditarTarea
+            key={tarea.id}
+            id={tarea.id}
+            editarNombreTarea={editarNombreTarea}
+          />
+          <EliminarTarea
+            key={tarea.id}
+            id={tarea.id}
+            borrarTarea={borrarTarea}
+          />
+        </>
+      ))}
+    </div>
+  );
 }
 
 export default ListaTareas;

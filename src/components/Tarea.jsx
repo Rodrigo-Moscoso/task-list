@@ -15,7 +15,7 @@ function Tarea({
             ? "lightgreen"
             : estado === "en proceso"
             ? "lightblue"
-            : "goldenrod",
+            : "#F7DC6F",
       }}
     >
       <h3>{nombre}</h3>
