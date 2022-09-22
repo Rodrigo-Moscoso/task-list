@@ -1,7 +1,7 @@
-function EliminarTarea(id, borrarTarea) {
+function EliminarTarea({ id, borrarTarea }) {
   return (
     <div>
-      <button onClick={() => borrarTarea(id)}>Borar Tarea</button>
+      <button onClick={borrarTarea}>Borar Tarea</button>
     </div>
   );
 }

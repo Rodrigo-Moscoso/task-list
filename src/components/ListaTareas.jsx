@@ -106,10 +106,11 @@ function ListaTareas({ nombre, estado }) {
     );
   }
 
-  // Función para BORRAR TAREA
+  //Función para BORRAR TAREA
 
   function borrarTarea(id) {
-    setTareas(tareas.filter((tarea) => id !== tarea.id));
+    const tareasFiltradas = tareas.filter((tarea) => id !== tarea.id);
+    setTareas(tareasFiltradas);
   }
 
   return (
@@ -117,9 +118,8 @@ function ListaTareas({ nombre, estado }) {
       <CrearTarea crearNuevaTarea={crearNuevaTarea} />
 
       {tareas.map((tarea) => (
-        <>
+        <div key={tarea.id}>
           <Tarea
-            key={tarea.id}
             id={tarea.id}
             nombre={tarea.nombre}
             estado={tarea.estado}
@@ -127,17 +127,12 @@ function ListaTareas({ nombre, estado }) {
             colocarCompleto={colocarCompleto}
             colocarEnProceso={colocarEnProceso}
           />
-          <EditarTarea
-            key={tarea.id}
-            id={tarea.id}
-            editarNombreTarea={editarNombreTarea}
-          />
+          <EditarTarea id={tarea.id} editarNombreTarea={editarNombreTarea} />
           <EliminarTarea
-            key={tarea.id}
             id={tarea.id}
-            borrarTarea={borrarTarea}
+            borrarTarea={() => borrarTarea(tarea.id)}
           />
-        </>
+        </div>
       ))}
     </div>
   );
