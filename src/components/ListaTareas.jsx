@@ -85,11 +85,20 @@ function ListaTareas({ nombre, estado }) {
 
   //función para CREAR TAREA
 
-  function crearNuevaTarea(nuevaTarea) {
-    setTareas([
-      ...tareas,
-      { id: tareas.length + 1, nombre: nuevaTarea, estado: "pendiente" },
-    ]);
+  function crearNuevaTarea(nuevaTarea, nuevaDescripcion) {
+    if (nuevaTarea.length < 3) {
+      alert("El nombre de la tarea debe tener más de 3 caracteres");
+    } else {
+      setTareas([
+        ...tareas,
+        {
+          id: tareas.length + 1,
+          nombre: nuevaTarea,
+          descripcion: nuevaDescripcion,
+          estado: "pendiente",
+        },
+      ]);
+    }
   }
 
   //Función para EDITAR TAREA
@@ -122,6 +131,7 @@ function ListaTareas({ nombre, estado }) {
           <Tarea
             id={tarea.id}
             nombre={tarea.nombre}
+            descripcion={tarea.descripcion}
             estado={tarea.estado}
             colocarPendiente={colocarPendiente}
             colocarCompleto={colocarCompleto}

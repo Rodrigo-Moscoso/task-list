@@ -1,6 +1,7 @@
 function Tarea({
   id,
   nombre,
+  descripcion,
   estado,
   colocarPendiente,
   colocarCompleto,
@@ -19,6 +20,7 @@ function Tarea({
       }}
     >
       <h3>{nombre}</h3>
+      <h5>{descripcion}</h5>
       <p>({estado})</p>
       {estado === "completo" ? (
         <img
