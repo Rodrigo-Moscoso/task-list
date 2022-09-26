@@ -1,5 +1,5 @@
 import Tarea from "./Tarea";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CrearTarea from "./CrearTarea";
 import EditarTarea from "./EditarTarea";
 import EliminarTarea from "./EliminarTarea";
@@ -43,7 +43,7 @@ const listadoTareas = [
 ];
 
 function ListaTareas({ nombre, estado }) {
-  const [tareas, setTareas] = useState(listadoTareas);
+  const [tareas, setTareas] = useState([]);
 
   //Funciones para CAMBIAR ESTADO de las tareas
 
@@ -82,6 +82,19 @@ function ListaTareas({ nombre, estado }) {
       })
     );
   };
+
+  //Guardando las tareas en LocalStorage
+
+  useEffect(() => {
+    let tareaGuardada = localStorage.getItem("tareasEnLocal");
+    if (tareaGuardada) {
+      setTareas(JSON.parse(tareaGuardada));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("tareasEnLocal", JSON.stringify(tareas));
+  }, [tareas]);
 
   //función para CREAR TAREA
 
