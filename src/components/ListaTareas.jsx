@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import CrearTarea from "./CrearTarea";
 import EditarTarea from "./EditarTarea";
 import EliminarTarea from "./EliminarTarea";
+import { Heading, HStack, VStack } from "@chakra-ui/react";
 
+//Al plicar el LocalStorage, ya no requiero el arreglo listadoTareas
 const listadoTareas = [
   {
     id: 1,
@@ -136,28 +138,44 @@ function ListaTareas({ nombre, estado }) {
   }
 
   return (
-    <div>
+    <VStack alignContent="center" boxSize="100%">
+      <Heading
+        as="h1"
+        boxSize="80%"
+        textAlign="center"
+        color="pink.600"
+        borderWidth="5px"
+        borderRadius="md"
+        borderRightColor="pink.600"
+        borderBottomColor="pink.600"
+        p="1%"
+      >
+        Tareas
+      </Heading>
+
       <CrearTarea crearNuevaTarea={crearNuevaTarea} />
 
       {tareas.map((tarea) => (
         <div key={tarea.id}>
-          <Tarea
-            id={tarea.id}
-            nombre={tarea.nombre}
-            descripcion={tarea.descripcion}
-            estado={tarea.estado}
-            colocarPendiente={colocarPendiente}
-            colocarCompleto={colocarCompleto}
-            colocarEnProceso={colocarEnProceso}
-          />
-          <EditarTarea id={tarea.id} editarNombreTarea={editarNombreTarea} />
-          <EliminarTarea
-            id={tarea.id}
-            borrarTarea={() => borrarTarea(tarea.id)}
-          />
+          <HStack>
+            <Tarea
+              id={tarea.id}
+              nombre={tarea.nombre}
+              descripcion={tarea.descripcion}
+              estado={tarea.estado}
+              colocarPendiente={colocarPendiente}
+              colocarCompleto={colocarCompleto}
+              colocarEnProceso={colocarEnProceso}
+            />
+            <EditarTarea id={tarea.id} editarNombreTarea={editarNombreTarea} />
+            <EliminarTarea
+              id={tarea.id}
+              borrarTarea={() => borrarTarea(tarea.id)}
+            />
+          </HStack>
         </div>
       ))}
-    </div>
+    </VStack>
   );
 }
 

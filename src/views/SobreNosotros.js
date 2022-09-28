@@ -1,16 +1,51 @@
+import { Heading, Text, VStack } from "@chakra-ui/react";
+
 export default function SobreNosotros() {
   return (
-    <>
-      <h1>Sobre Nosotros</h1>
-      <p>
+    <VStack alignContent="center">
+      <Heading
+        as="h1"
+        boxSize="80%"
+        textAlign="center"
+        color="pink.600"
+        borderWidth="5px"
+        borderRadius="md"
+        borderRightColor="pink.600"
+        borderBottomColor="pink.600"
+        p="1%"
+      >
+        Sobre Nosotros
+      </Heading>
+      <Text
+        boxSize="70%"
+        fontSize="xl"
+        textAlign="center"
+        color="pink.500"
+        borderWidth="2px"
+        borderRadius="md"
+        borderRightColor="pink.600"
+        borderBottomColor="pink.600"
+        p="3%"
+      >
         Con esta APP podrá crear un listado de tareas, dondre podrá
         verificar/cambiar su estado de ejecución, así como editar o crear nuevas
         tareas.
-      </p>
-      <p>
+      </Text>
+
+      <Text
+        boxSize="70%"
+        fontSize="xl"
+        textAlign="center"
+        color="pink.500"
+        borderWidth="2px"
+        borderRadius="md"
+        borderRightColor="pink.600"
+        borderBottomColor="pink.600"
+        p="3%"
+      >
         Las tecnologías usadas para esta APP han sido hechas con React, React
-        Router, Lazy Loading y Hooks, entre otras herramientas.
-      </p>
-    </>
+        Router, Lazy Loading, Hooks, Chakras, entre otras herramientas.
+      </Text>
+    </VStack>
   );
 }

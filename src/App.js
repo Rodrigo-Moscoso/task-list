@@ -4,21 +4,43 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./views/Home";
 import SobreNosotros from "./views/SobreNosotros";
 import Tareas from "./views/Tareas";
+import { Button, HStack } from "@chakra-ui/react";
 
 function App() {
   return (
     <>
       <Header />
+
       <Router>
-        <Link to="/">
-          <button>Home</button>
-        </Link>
-        <Link to="/tareas">
-          <button>Tareas</button>
-        </Link>
-        <Link to="/sobrenosotros">
-          <button>Sobre Nosotros</button>
-        </Link>
+        <HStack p="3%" justify="center" spacing="3%">
+          <Link to="/">
+            <Button
+              bg="pink.600"
+              textColor="whiteAlpha.800"
+              _hover={{ textColor: "black", bg: "pink.300" }}
+            >
+              Home
+            </Button>
+          </Link>
+          <Link to="/tareas">
+            <Button
+              bg="pink.600"
+              textColor="whiteAlpha.800"
+              _hover={{ textColor: "black", bg: "pink.300" }}
+            >
+              Tareas
+            </Button>
+          </Link>
+          <Link to="/sobrenosotros">
+            <Button
+              bg="pink.600"
+              textColor="whiteAlpha.800"
+              _hover={{ textColor: "black", bg: "pink.300" }}
+            >
+              Sobre Nosotros
+            </Button>
+          </Link>
+        </HStack>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sobrenosotros" element={<SobreNosotros />} />

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Input, Heading, VStack, Button } from "@chakra-ui/react";
 
 function EditarTarea({ id, nombre, estado, editarNombreTarea }) {
   const [nombreTareaEditada, setNombreTareaEditada] = useState("");
@@ -11,22 +12,42 @@ function EditarTarea({ id, nombre, estado, editarNombreTarea }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="nombre-tarea-editar">
-          Ingrese la nombre de la tarea a editar:{" "}
-        </label>
-        <input
+    <form>
+      <VStack
+        w="100%"
+        borderBottomWidth="4px"
+        borderRightWidth="8px"
+        borderBottomColor="pink.700"
+        borderRightColor="pink.700"
+        paddingBottom="10px"
+      >
+        <Heading as="h4" size="md" color="pink.700">
+          Editar Tarea
+        </Heading>
+        <Input
           id="nombre-tarea-editar"
           type="text"
-          placeholder="... editar tarea"
+          size="lg"
+          boxSize="60%"
+          textAlign="center"
+          variant="filled"
+          _placeholder={{
+            opacity: 0.7,
+            color: "pink.500",
+          }}
+          placeholder="... nombre de tarea"
           value={nombreTareaEditada}
           onChange={(e) => setNombreTareaEditada(e.target.value)}
         />
-      </div>
-      <div>
-        <button>Editar Tarea</button>
-      </div>
+        <Button
+          onClick={handleSubmit}
+          bg="pink.500"
+          textColor="whiteAlpha.800"
+          _hover={{ textColor: "black", bg: "pink.300" }}
+        >
+          Editar Tarea
+        </Button>
+      </VStack>
     </form>
   );
 }
