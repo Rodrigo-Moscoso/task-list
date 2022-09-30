@@ -4,9 +4,11 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./views/Home";
 import SobreNosotros from "./views/SobreNosotros";
 import Tareas from "./views/Tareas";
-import { Button, HStack } from "@chakra-ui/react";
+import { Button, Center, HStack, Text } from "@chakra-ui/react";
+import { useUser } from "./customHooks/useUser.jsx";
 
 function App() {
+  const { user } = useUser();
   return (
     <>
       <Header />
@@ -44,7 +46,26 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sobrenosotros" element={<SobreNosotros />} />
-          <Route path="/tareas" element={<Tareas />} />
+          <Route
+            path="/tareas"
+            element={
+              user.name ? (
+                <Tareas />
+              ) : (
+                <Center>
+                  <Text
+                    as="b"
+                    fontSize="xl"
+                    bold
+                    textAlign="center"
+                    color="pink.500"
+                  >
+                    Acceso denegado. Por favor, inicie sesión primero.
+                  </Text>
+                </Center>
+              )
+            }
+          />
         </Routes>
       </Router>
     </>
