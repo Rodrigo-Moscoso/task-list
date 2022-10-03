@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import CrearTarea from "./CrearTarea";
 import EditarTarea from "./EditarTarea";
 import EliminarTarea from "./EliminarTarea";
-import { Heading, HStack, VStack } from "@chakra-ui/react";
+import { Heading, HStack, VStack, Button } from "@chakra-ui/react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 //Al plicar el LocalStorage, ya no requiero el arreglo listadoTareas
 const listadoTareas = [
@@ -46,6 +48,22 @@ const listadoTareas = [
 
 function ListaTareas({ nombre, estado }) {
   const [tareas, setTareas] = useState([]);
+  const documentos = [];
+
+  const leerTareas = async () => {
+    try {
+      const query = await getDocs(collection(db, "tareas"));
+      query.forEach((document) => {
+        documentos.push({ id: document.id, ...document.data() });
+        //trae, mete en arreglo documentos, el "id" y todos los demás
+        // datos con "...document.data()"
+        setTareas(documentos);
+        console.log(documentos);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //Funciones para CAMBIAR ESTADO de las tareas
 
@@ -87,16 +105,16 @@ function ListaTareas({ nombre, estado }) {
 
   //Guardando las tareas en LocalStorage
 
-  useEffect(() => {
-    let tareaGuardada = localStorage.getItem("tareasEnLocal");
-    if (tareaGuardada) {
-      setTareas(JSON.parse(tareaGuardada));
-    }
-  }, []);
+  // useEffect(() => {
+  //   let tareaGuardada = localStorage.getItem("tareasEnLocal");
+  //   if (tareaGuardada) {
+  //     setTareas(JSON.parse(tareaGuardada));
+  //   }
+  // }, []);
 
-  useEffect(() => {
-    localStorage.setItem("tareasEnLocal", JSON.stringify(tareas));
-  }, [tareas]);
+  // useEffect(() => {
+  //   localStorage.setItem("tareasEnLocal", JSON.stringify(tareas));
+  // }, [tareas]);
 
   //función para CREAR TAREA
 
@@ -167,6 +185,7 @@ function ListaTareas({ nombre, estado }) {
               colocarCompleto={colocarCompleto}
               colocarEnProceso={colocarEnProceso}
             />
+
             <EditarTarea id={tarea.id} editarNombreTarea={editarNombreTarea} />
             <EliminarTarea
               id={tarea.id}
@@ -175,6 +194,9 @@ function ListaTareas({ nombre, estado }) {
           </HStack>
         </div>
       ))}
+      <Button onClick={leerTareas} colorScheme="telegram">
+        Cargar
+      </Button>
     </VStack>
   );
 }
