@@ -231,7 +231,7 @@ function ListaTareas({ nombre, estado }) {
   // }
 
   return (
-    <VStack alignContent="center" boxSize="100%">
+    <VStack alignContent="center" boxSize="100%" spacing="40px">
       <Heading
         as="h1"
         boxSize="80%"
@@ -269,8 +269,9 @@ function ListaTareas({ nombre, estado }) {
           </HStack>
         </div>
       ))}
-      <Button onClick={leerTareas} colorScheme="telegram">
-        Cargar
+
+      <Button padding="20px" onClick={leerTareas} colorScheme="whatsapp">
+        Cargar Tareas
       </Button>
     </VStack>
   );

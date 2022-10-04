@@ -6,6 +6,7 @@ import SobreNosotros from "./views/SobreNosotros";
 import Tareas from "./views/Tareas";
 import { Button, Center, HStack, Text } from "@chakra-ui/react";
 import { useUser } from "./customHooks/useUser.jsx";
+import Footer from "./components/Footer";
 
 function App() {
   const { user } = useUser();
@@ -68,6 +69,7 @@ function App() {
           />
         </Routes>
       </Router>
+      <Footer />
     </>
   );
 }
