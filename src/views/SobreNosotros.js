@@ -28,8 +28,9 @@ export default function SobreNosotros() {
         p="3%"
       >
         Con esta APP podrá crear un listado de tareas, dondre podrá
-        verificar/cambiar su estado de ejecución, así como editar o crear nuevas
-        tareas.
+        verificar/cambiar su estado de ejecución, así como crear, editar o
+        borrar tareas. Para mayor seguridad, se ha incluido la autenticación de
+        usuarios.
       </Text>
 
       <Text
@@ -44,7 +45,8 @@ export default function SobreNosotros() {
         p="3%"
       >
         Las tecnologías usadas para esta APP han sido hechas con React, React
-        Router, Lazy Loading, Hooks, Chakras, entre otras herramientas.
+        Router, Lazy Loading, Hooks, Chakras, Autenticación y Firestore, entre
+        otras herramientas.
       </Text>
     </VStack>
   );
