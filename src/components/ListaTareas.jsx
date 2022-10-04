@@ -1,50 +1,59 @@
 import Tarea from "./Tarea";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import CrearTarea from "./CrearTarea";
 import EditarTarea from "./EditarTarea";
 import EliminarTarea from "./EliminarTarea";
 import { Heading, HStack, VStack, Button } from "@chakra-ui/react";
-import { collection, getDocs } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  getDoc,
+  updateDoc,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firebaseConfig";
 
-//Al plicar el LocalStorage, ya no requiero el arreglo listadoTareas
-const listadoTareas = [
-  {
-    id: 1,
-    nombre: "Realizar la tarea 1: Limpiar",
-    estado: "pendiente",
-  },
-  {
-    id: 2,
-    nombre: "Realizar la tarea 2: Barrer",
-    estado: "completo",
-  },
-  {
-    id: 3,
-    nombre: "Realizar la tarea 3: Aspirar",
-    estado: "en proceso",
-  },
-  {
-    id: 4,
-    nombre: "Realizar la tarea 4: Desempolvar",
-    estado: "en proceso",
-  },
-  {
-    id: 5,
-    nombre: "Realizar la tarea 5: Lustrar",
-    estado: "completo",
-  },
-  {
-    id: 6,
-    nombre: "Realizar la tarea 6: Ordenar",
-    estado: "en proceso",
-  },
-  {
-    id: 7,
-    nombre: "Realizar la tarea 7: Descansar",
-    estado: "pendiente",
-  },
-];
+//Al plicar el LocalStorage, y luego firebase, ya no requiero el arreglo listadoTareas
+
+// const listadoTareas = [
+//   {
+//     id: 1,
+//     nombre: "Realizar la tarea 1: Limpiar",
+//     estado: "pendiente",
+//   },
+//   {
+//     id: 2,
+//     nombre: "Realizar la tarea 2: Barrer",
+//     estado: "completo",
+//   },
+//   {
+//     id: 3,
+//     nombre: "Realizar la tarea 3: Aspirar",
+//     estado: "en proceso",
+//   },
+//   {
+//     id: 4,
+//     nombre: "Realizar la tarea 4: Desempolvar",
+//     estado: "en proceso",
+//   },
+//   {
+//     id: 5,
+//     nombre: "Realizar la tarea 5: Lustrar",
+//     estado: "completo",
+//   },
+//   {
+//     id: 6,
+//     nombre: "Realizar la tarea 6: Ordenar",
+//     estado: "en proceso",
+//   },
+//   {
+//     id: 7,
+//     nombre: "Realizar la tarea 7: Descansar",
+//     estado: "pendiente",
+//   },
+// ];
 
 function ListaTareas({ nombre, estado }) {
   const [tareas, setTareas] = useState([]);
@@ -65,43 +74,87 @@ function ListaTareas({ nombre, estado }) {
     }
   };
 
-  //Funciones para CAMBIAR ESTADO de las tareas
+  //Funciones para EDITAR ESTADO de las tareas
 
-  const colocarPendiente = (id) => {
-    setTareas(
-      tareas.map((tarea) => {
-        if (id === tarea.id) {
-          return { ...tarea, estado: "pendiente" };
-        } else {
-          return tarea;
-        }
-      })
-    );
+  const colocarPendiente = async (id) => {
+    try {
+      const docRef = doc(collection(db, "tareas"), id);
+      await updateDoc(docRef, {
+        estado: "pendiente",
+      });
+      const docu = await getDoc(docRef);
+      documentos.push({ id: docu.id, ...docu.data() });
+      setTareas(documentos);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const colocarCompleto = (id) => {
-    setTareas(
-      tareas.map((tarea) => {
-        if (id === tarea.id) {
-          return { ...tarea, estado: "completo" };
-        } else {
-          return tarea;
-        }
-      })
-    );
+  const colocarCompleto = async (id) => {
+    try {
+      const docRef = doc(collection(db, "tareas"), id);
+      await updateDoc(docRef, {
+        estado: "completo",
+      });
+      const docu = await getDoc(docRef);
+      documentos.push({ id: docu.id, ...docu.data() });
+      setTareas(documentos);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const colocarEnProceso = (id) => {
-    setTareas(
-      tareas.map((tarea) => {
-        if (id === tarea.id) {
-          return { ...tarea, estado: "en proceso" };
-        } else {
-          return tarea;
-        }
-      })
-    );
+  const colocarEnProceso = async (id) => {
+    try {
+      const docRef = doc(collection(db, "tareas"), id);
+      await updateDoc(docRef, {
+        estado: "en proceso",
+      });
+      const docu = await getDoc(docRef);
+      documentos.push({ id: docu.id, ...docu.data() });
+      setTareas(documentos);
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  //Estas funciones se hicieron cuando se trabajaba sin base de datos.
+
+  // const colocarPendiente = (id) => {
+  //   setTareas(
+  //     tareas.map((tarea) => {
+  //       if (id === tarea.id) {
+  //         return { ...tarea, estado: "pendiente" };
+  //       } else {
+  //         return tarea;
+  //       }
+  //     })
+  //   );
+  // };
+
+  // const colocarCompleto = (id) => {
+  //   setTareas(
+  //     tareas.map((tarea) => {
+  //       if (id === tarea.id) {
+  //         return { ...tarea, estado: "completo" };
+  //       } else {
+  //         return tarea;
+  //       }
+  //     })
+  //   );
+  // };
+
+  // const colocarEnProceso = (id) => {
+  //   setTareas(
+  //     tareas.map((tarea) => {
+  //       if (id === tarea.id) {
+  //         return { ...tarea, estado: "en proceso" };
+  //       } else {
+  //         return tarea;
+  //       }
+  //     })
+  //   );
+  // };
 
   //Guardando las tareas en LocalStorage
 
@@ -116,44 +169,66 @@ function ListaTareas({ nombre, estado }) {
   //   localStorage.setItem("tareasEnLocal", JSON.stringify(tareas));
   // }, [tareas]);
 
-  //función para CREAR TAREA
+  //Función para CREAR TAREA
 
-  function crearNuevaTarea(nuevaTarea, nuevaDescripcion) {
+  const crearTarea = async (nuevaTarea, nuevaDescripcion) => {
     if (nuevaTarea.length < 3) {
       alert("El nombre de la tarea debe tener más de 3 caracteres");
     } else {
-      setTareas([
-        ...tareas,
-        {
-          id: tareas.length + 1,
+      try {
+        const docRef = await addDoc(collection(db, "tareas"), {
           nombre: nuevaTarea,
           descripcion: nuevaDescripcion,
           estado: "pendiente",
-        },
-      ]);
+        });
+        const doc = await getDoc(docRef);
+        documentos.push({ id: doc.id, ...doc.data() });
+        setTareas(documentos);
+      } catch (error) {
+        console.log(error);
+      }
     }
-  }
+  };
 
   //Función para EDITAR TAREA
 
-  function editarNombreTarea(id, tareaEditada) {
-    setTareas(
-      tareas.map((tarea) => {
-        if (id === tarea.id) {
-          return { ...tarea, nombre: tareaEditada };
-        } else {
-          return tarea;
-        }
-      })
-    );
-  }
+  const editarTarea = async (id, tareaEditada) => {
+    try {
+      const docRef = doc(collection(db, "tareas"), id);
+      await updateDoc(docRef, {
+        nombre: tareaEditada,
+      });
+      const docu = await getDoc(docRef);
+      documentos.push({ id: docu.id, ...docu.data() });
+      setTareas(documentos);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   //Función para BORRAR TAREA
 
-  function borrarTarea(id) {
-    const tareasFiltradas = tareas.filter((tarea) => id !== tarea.id);
-    setTareas(tareasFiltradas);
-  }
+  const borrarTarea = async (id) => {
+    try {
+      await deleteDoc(doc(db, "tareas", id));
+      //Luego de Eliminar el documento, leo los demás documentos de la BD
+      const query = await getDocs(collection(db, "tareas"));
+      query.forEach((document) => {
+        documentos.push({ id: document.id, ...document.data() });
+        //trae, mete en arreglo documentos, el "id" y todos los demás datos con "...document.data()"
+        setTareas(documentos);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Función que se hizo cuando no se usaba base de datos.
+
+  // function borrarTarea(id) {
+  //   const tareasFiltradas = tareas.filter((tarea) => id !== tarea.id);
+  //   setTareas(tareasFiltradas);
+  // }
 
   return (
     <VStack alignContent="center" boxSize="100%">
@@ -171,7 +246,7 @@ function ListaTareas({ nombre, estado }) {
         Tareas
       </Heading>
 
-      <CrearTarea crearNuevaTarea={crearNuevaTarea} />
+      <CrearTarea crearNuevaTarea={crearTarea} />
 
       {tareas.map((tarea) => (
         <div key={tarea.id}>
@@ -186,7 +261,7 @@ function ListaTareas({ nombre, estado }) {
               colocarEnProceso={colocarEnProceso}
             />
 
-            <EditarTarea id={tarea.id} editarNombreTarea={editarNombreTarea} />
+            <EditarTarea id={tarea.id} editarNombreTarea={editarTarea} />
             <EliminarTarea
               id={tarea.id}
               borrarTarea={() => borrarTarea(tarea.id)}
