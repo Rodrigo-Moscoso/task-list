@@ -1,6 +1,6 @@
 import Tarea from "./Tarea";
-import { useState } from "react";
 import CrearTarea from "./CrearTarea";
+import useListaTareas from "../customsHooksTareas/useListaTareas";
 import EditarTarea from "./EditarTarea";
 import EliminarTarea from "./EliminarTarea";
 
@@ -43,79 +43,89 @@ const listadoTareas = [
 ];
 
 function ListaTareas({ nombre, estado }) {
-  const [tareas, setTareas] = useState(listadoTareas);
+  const [
+    tareas,
+    agregarTarea,
+    borrarTarea,
+    editarNombreTarea,
+    colocarPendiente,
+    colocarCompleto,
+    colocarEnProceso,
+  ] = useListaTareas(listadoTareas);
+
+  //Se comentaron todas las funciones, por que cree el Hook useListaTareas.jsx
 
   //Funciones para CAMBIAR ESTADO de las tareas
 
-  const colocarPendiente = (id) => {
-    setTareas(
-      tareas.map((tarea) => {
-        if (id === tarea.id) {
-          return { ...tarea, estado: "pendiente" };
-        } else {
-          return tarea;
-        }
-      })
-    );
-  };
+  // const colocarPendiente = (id) => {
+  //   setTareas(
+  //     tareas.map((tarea) => {
+  //       if (id === tarea.id) {
+  //         return { ...tarea, estado: "pendiente" };
+  //       } else {
+  //         return tarea;
+  //       }
+  //     })
+  //   );
+  // };
 
-  const colocarCompleto = (id) => {
-    setTareas(
-      tareas.map((tarea) => {
-        if (id === tarea.id) {
-          return { ...tarea, estado: "completo" };
-        } else {
-          return tarea;
-        }
-      })
-    );
-  };
+  // const colocarCompleto = (id) => {
+  //   setTareas(
+  //     tareas.map((tarea) => {
+  //       if (id === tarea.id) {
+  //         return { ...tarea, estado: "completo" };
+  //       } else {
+  //         return tarea;
+  //       }
+  //     })
+  //   );
+  // };
 
-  const colocarEnProceso = (id) => {
-    setTareas(
-      tareas.map((tarea) => {
-        if (id === tarea.id) {
-          return { ...tarea, estado: "en proceso" };
-        } else {
-          return tarea;
-        }
-      })
-    );
-  };
+  // const colocarEnProceso = (id) => {
+  //   setTareas(
+  //     tareas.map((tarea) => {
+  //       if (id === tarea.id) {
+  //         return { ...tarea, estado: "en proceso" };
+  //       } else {
+  //         return tarea;
+  //       }
+  //     })
+  //   );
+  // };
 
   //función para CREAR TAREA
 
-  function crearNuevaTarea(nuevaTarea) {
-    setTareas([
-      ...tareas,
-      { id: tareas.length + 1, nombre: nuevaTarea, estado: "pendiente" },
-    ]);
-  }
+  // function crearNuevaTarea(nuevaTarea) {
+  //   setTareas([
+  //     ...tareas,
+  //     { id: tareas.length + 1, nombre: nuevaTarea, estado: "pendiente" },
+  //   ]);
+  // }
 
-  //Función para EDITAR TAREA
+  // //Función para EDITAR TAREA
 
-  function editarNombreTarea(id, tareaEditada) {
-    setTareas(
-      tareas.map((tarea) => {
-        if (id === tarea.id) {
-          return { ...tarea, nombre: tareaEditada };
-        } else {
-          return tarea;
-        }
-      })
-    );
-  }
+  // function editarNombreTarea(id, tareaEditada) {
+  //   setTareas(
+  //     tareas.map((tarea) => {
+  //       if (id === tarea.id) {
+  //         return { ...tarea, nombre: tareaEditada };
+  //       } else {
+  //         return tarea;
+  //       }
+  //     })
+  //   );
+  // }
 
-  //Función para BORRAR TAREA
+  // //Función para BORRAR TAREA
 
-  function borrarTarea(id) {
-    const tareasFiltradas = tareas.filter((tarea) => id !== tarea.id);
-    setTareas(tareasFiltradas);
-  }
+  // function borrarTarea(id) {
+  //   const tareasFiltradas = tareas.filter((tarea) => id !== tarea.id);
+  //   setTareas(tareasFiltradas);
+  // }
 
   return (
     <div>
-      <CrearTarea crearNuevaTarea={crearNuevaTarea} />
+      <CrearTarea crearNuevaTarea={agregarTarea} />
 
       {tareas.map((tarea) => (
         <div key={tarea.id}>
